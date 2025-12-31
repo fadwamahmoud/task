@@ -41,9 +41,19 @@ public class BookService {
       Book existing =  repo.findById(id)
       .orElseThrow(()-> new BookNotFoundException());
 
-      existing.setName(updated.getName().trim());
-      existing.setAuthor(updated.getAuthor().trim());
-      existing.setRating(updated.getRating());
+      if(updated.getName() != null){
+        existing.setName(updated.getName().trim());
+
+      }
+      if(updated.getAuthor() != null){
+        existing.setAuthor(updated.getAuthor().trim());
+
+      }
+      if(updated.getRating() != null){
+        existing.setRating(updated.getRating());
+
+      }
+
 
       return repo.save(existing);
     }
