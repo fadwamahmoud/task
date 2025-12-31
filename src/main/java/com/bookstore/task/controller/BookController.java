@@ -27,6 +27,12 @@ public class BookController {
         return service.list();
     }
 
+    @GetMapping("/books/count")
+    public Integer count() {
+
+        return service.count();
+    }
+
     @PostMapping("/book")
     @ResponseStatus(HttpStatus.CREATED)
     public Book create(@Valid @RequestBody Book book) {

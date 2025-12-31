@@ -26,6 +26,11 @@ public class BookService {
 
     }
 
+    public Integer count(){
+
+        return repo.findAll().size();
+    }
+
     public Book create(Book book){
         book.setName(book.getName().trim());
         book.setAuthor(book.getAuthor().trim());
