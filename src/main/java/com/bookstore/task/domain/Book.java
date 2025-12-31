@@ -23,12 +23,19 @@ public class Book {
     @Column(nullable = false)
     private String author;
 
+    @Version
+    private Long version;
+
+    protected Book() {
+    }
+    
     public Book(String name, Integer rating, String author){
         this.name = name;
         this.rating = rating;
         this.author = author;
     }
-    
+
+   
     public Long getId() { return id; }
     public String getName() { return name; }
     public Integer getRating() { return rating; }

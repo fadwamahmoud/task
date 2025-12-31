@@ -2,6 +2,7 @@ package com.bookstore.task.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,9 +27,20 @@ public class ApiExceptionHandler {
                 ex.getMessage()));
     }
 
+    @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity<ApiError> handleOptimisticLock() {
+        return ResponseEntity.status(
+                HttpStatus.CONFLICT)
+                .body(new ApiError("CONCURRENT_UPDATE",
+                        "The resource was updated by another request. Please refresh and try again."));
+    }
+
     @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ApiError> handleGeneric(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ApiError("INTERNAL_ERROR", "Something went wrong"));
     }
+
 }
