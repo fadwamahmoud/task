@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import com.bookstore.task.domain.Book;
+import com.bookstore.task.dto.response.BookResponse;
+import com.bookstore.task.dto.rquest.CreateBookRequest;
+import com.bookstore.task.dto.rquest.UpdateBookRequest;
 import com.bookstore.task.exception.BookNotFoundException;
 import com.bookstore.task.service.BookService;
 
@@ -22,7 +24,7 @@ public class BookController {
     }
 
     @GetMapping("/books")
-    public List<Book> list() {
+    public List<BookResponse> list() {
 
         return service.list();
     }
@@ -35,15 +37,15 @@ public class BookController {
 
     @PostMapping("/book")
     @ResponseStatus(HttpStatus.CREATED)
-    public Book create(@Valid @RequestBody Book book) {
+    public BookResponse create(@Valid @RequestBody CreateBookRequest req) {
 
-        return service.create(book);
+        return service.create(req);
     }
 
     @PutMapping("/book/{id}")
-    public Book update(@PathVariable Long id, @Valid @RequestBody Book book) throws BookNotFoundException {
+    public BookResponse update(@PathVariable Long id, @Valid @RequestBody UpdateBookRequest req) throws BookNotFoundException {
 
-        return service.update(id, book);
+        return service.update(id, req);
 
     }
 

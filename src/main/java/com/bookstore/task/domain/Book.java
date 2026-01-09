@@ -40,6 +40,7 @@ public class Book {
     public String getName() { return name; }
     public Integer getRating() { return rating; }
     public String getAuthor() { return author; }
+    public Long getVersion() { return version;}
 
     public void setName(String name) { this.name = name; }
     public void setRating(Integer rating) { this.rating = rating; }
