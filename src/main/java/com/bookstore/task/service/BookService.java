@@ -41,15 +41,13 @@ public class BookService {
     return BookMapper.toResponse(saved);
   }
 
-  // partial update ie patch
   public BookResponse update(Long id, UpdateBookRequest req) throws BookNotFoundException {
     Book book = repo.findById(id)
         .orElseThrow(() -> new BookNotFoundException());
 
-    // Optional optimistic check at API level (recommended for clearer 409):
+    // Optional optimistic check at API level
     if (!book.getVersion().equals(req.version()))
-      // throw your own exception that maps to 409,
-      // OR throw an OptimisticLockingFailureException
+      
       throw new org.springframework.dao.OptimisticLockingFailureException(
           "Stale version. Expected " + book.getVersion() + " but got " + req.version());
 

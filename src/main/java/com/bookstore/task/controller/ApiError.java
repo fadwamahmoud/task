@@ -1,3 +1,5 @@
 package com.bookstore.task.controller;
 
-public record ApiError(String code, String message) {}
+import java.util.Map;
+
+public record ApiError(String code, String message, Map<String,String> errors) {}
